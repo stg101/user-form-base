@@ -8,7 +8,16 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(params[:user])
+
+    @user = User.new(user_params)
+    
+    if @user.valid?
+      @user.save
+      render json: {message: "successfully created user"}, status: :created
+    else
+      redirect_to "/users/new", status: 301
+    end
+        
   end
 
   private
