@@ -1,13 +1,18 @@
 <h1>Sign up!</h1>
 
-<!--
-<div class="errors">
-  <ul>
-    <li>One error</li>
-    <li>Another error</li>
-  </ul>
-</div>
--->
+
+<% if flash[:errors] %>
+  <div class="errors">
+    <ul>
+      <% flash[:errors].each do |e| %>
+      <li><%= e %></li>
+      <% end %> 
+    </ul>
+  </div>
+<%end%>
+
+
+
 
 <%= form_for(@user) do |f| %>
   <ul>

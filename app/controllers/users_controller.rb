@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
+  
   def index
-    @user = User.last
+    @user = User.last    
   end
 
   def new
@@ -8,16 +9,15 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
-    
     if @user.valid?
       @user.save
-      render json: {message: "successfully created user"}, status: :created
+      redirect_to "/users", status: 301
     else
-      redirect_to "/users/new", status: 301
+      errors = @user.errors.full_messages
+      redirect_to "/users/new", status: 301, flash: {errors: errors}
     end
-        
+
   end
 
   private
@@ -34,4 +34,5 @@ class UsersController < ApplicationController
       :password_hint
     )
   end
+
 end
